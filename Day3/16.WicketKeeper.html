@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+label
+{
+    display: inline-block;
+  width: 200px;
+  text-align: right;
+  padding: 5px;
+}
+table,
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid black;
+        border-collapse: collapse;
+        margin: 5px;
+      }
+    </style>
+</head>
+<body>
+     
+    <h1 style="text-align: center">IPL</h1>
+    <label>Enter Name</label>
+    <input type="text" name="Name" id="Name" placeholder="Enter Name"><br>
+    <label>Enter Team</label>
+    <input type="text" name="Team" id="Team" placeholder="Enter Team"><br>
+    <label>Enter Season</label>
+    <input type="text" name="Season" id="Season" placeholder="Enter Season"><br>
+    <label>Enter Runs</label>
+    <input type="text" name="Runs" id="Runs" placeholder="Enter Runs"><br>
+    <label>Enter Wickets</label>
+    <input type="text" name="Wickets" id="Wickets" placeholder="Enter Wickets"><br>
+    <label></label>
+    <button onclick="savePlayer()">Submit</button>
+    <button onclick="Leader()">Leader</button>
+
+    <table id="result" style="border:2mm">
+    </table><br><br><br><br>
+    <table id="resultleader" style="border:2mm">
+        <tr>The orange Cap for</tr>
+    </table>
+    <table id="resultleader2" style="border:2mm">
+        <tr>The purple Cap for</tr>
+    </table>
+    <script>
+ 
+    playerlist=[];
+ 
+    function player(Name,Team,Season,Runs,Wickets){
+        this.Name = Name;
+        this.Team = Team;
+        this.Season=Season;
+        this.Runs=Runs;
+        this.Wickets = Wickets;
+    }
+    
+    function displayplayer(){
+        var data = '';    
+        for (var i=0;i<playerlist.length;i++){
+            data = data + '<tr>';
+            data=data+'<td>'+playerlist[i].Name+'</td>'+'<td>'+playerlist[i].Team+'</td>'+'<td>'+playerlist[i].Season+'</td>'+'<td>'+playerlist[i].Runs+'</td>'+'<td>'+playerlist[i].Wickets+'</td>';    
+            data = data+'</tr>';
+        }
+        document.getElementById('result').innerHTML=data;
+    }
+ 
+        function savePlayer(){
+            Name = document.getElementById("Name").value;
+            Team = document.getElementById("Team").value;
+            Season = document.getElementById("Season").value;
+            Runs = document.getElementById("Runs").value;
+            Wickets = document.getElementById("Wickets").value;
+            play = new player(Name,Team,Season,Runs,Wickets);
+            playerlist.push(play);
+            console.log('playerlist ',playerlist);
+            displayplayer();
+        }
+
+        function Leader()
+        {
+            displayorange();
+            displayPurple();
+            
+        }
+
+        function displayorange(){
+            max=0;
+            index=0;
+            for (var i=0;i<playerlist.length;i++){
+                if(max<playerlist[i].Runs)
+                {
+                max=playerlist[i].Runs;
+                index=i;
+                }
+            }
+        var data1 = '';  
+        data1='<tr>'+'<td>'+playerlist[index].Name+'</td>'+'<td>'+playerlist[index].Team+'</td>'+'<td>'+playerlist[index].Season+'</td>'+'<td>'+playerlist[index].Runs+'</td>'+'<td>'+playerlist[index].Wickets+'</td>'+'</tr>';    
+        document.getElementById('resultleader').innerHTML=data1;
+    }
+    function displayPurple(){
+            max=0;
+            index=0;
+            for (var i=0;i<playerlist.length;i++){
+                if(max<playerlist[i].Wickets)
+                {
+                max=playerlist[i].Wickets;
+                index=i;
+                }
+            }
+        var data1 = '';  
+        data1='<tr>'+'<td>'+playerlist[index].Name+'</td>'+'<td>'+playerlist[index].Team+'</td>'+'<td>'+playerlist[index].Season+'</td>'+'<td>'+playerlist[index].Runs+'</td>'+'<td>'+playerlist[index].Wickets+'</td>'+'</tr>';    
+        document.getElementById('resultleader2').innerHTML=data1;
+    }
+
+ 
+    </script>
+</body>
+</html>

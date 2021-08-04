@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center">Corona Patient Management</h1>
+<form action="BedDetails.html" method="POST">
+<Div style="text-align: left">
+    <table>
+    <tr><td>
+    <label>Name of the patient</label></td>
+    <td>
+    <input type="text" name="PatientName" id="PatientName" maxlength="50" autofocus><br> <br></td>
+    </tr>
+
+    <tr>
+    <td>
+    <label>Sex:</label></td>
+    <td>Female <input type="radio" name="gender" value="F">
+    Male <input type="radio" name="gender" value="M" checked>
+    Others <input type="radio" name="gender" value="O"> <br> <br></td>
+    </tr>
+
+    <tr>
+    <td><label>location</label></td>
+    <td><select id="location">
+        <option value="bng" selected>Bengaluru</option>
+        <option value="chn">Chennai</option>
+        <option value="hyd">Hyderabad</option>
+    </select><br> <br></td>
+    </tr>
+    <tr>
+            <td><label>Pincode</label></td>
+            <td><input type="text" name="Pincode" id="Pincode" maxlength="6"><br> <br></td>
+    </tr><tr>
+            <td><label>Aadhar No</label></td>
+                <td><input type="text" name="AadharNo" id="AadharNo" maxlength="10"><br> <br></td>
+    </tr> <tr>
+            <td><label>Mobile</label></td>
+                <td><input type="number" name="Mobile" id="Mobile" maxlength="10"><br> <br></td>
+    </tr> <tr>
+            <td><label>Attendee Name</label></td>
+                <td><input type="text" name="Attendee" id="Attendee"><br> <br></td>
+    </tr> <tr>
+            <td><label for="Request">Date and Time of Request:</label></td>
+                <td><input type="date" id="Request" name="Request"><br><br></td>
+    </tr> <tr>
+            <td> <label for="points">SP02 Level</label></td>
+                <td> <input type="range" id="points" name="points" min="0" max="100"><br><br></td>
+    </tr> <tr>
+            <td><label>Type of Hospital </label></td>
+                <td> <select id="Hospital">
+        <option value="Gov">Govt</option>
+        <option value="pvt">Private</option>
+        <option value="car">Care Center</option>
+    </select><br> <br></td>
+    </tr>    
+</table>   
+</Div>
+<br><br><input type="submit" value="register"> 
+</form>
+</body>
+</html>

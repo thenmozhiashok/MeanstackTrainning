@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+label{
+    display: inline-block;
+  width: 200px;
+  text-align: right;
+  padding: 20px;
+}
+    </style>   
+</head>
+<body>
+    <label>Enter the Input1</label>
+    <input type="text" name="Name" id="I1"></input>
+<br>
+    <label>Enter the Input2</label>
+    <input type="text" name="Mail" id="I2"></input><br>
+    <label>Operation</label>
+    <input type="text" name="Name" id="OP"></input> <br>
+    <label></label>
+    <button onclick="DoOperation()">Submit</button>
+    <label></label>
+    <h1 id="hid">The result is</h1>
+    <script>        
+    function DoOperation(){
+    A=parseInt(document.getElementById("I1").value);
+    B=parseInt(document.getElementById("I1").value);
+    OPER= document.getElementById("OP").value;
+    if(OPER=="A")
+    {
+    C=A+B;
+    document.getElementById("hid").innerHTML=C;
+    }
+    if(OPER=="S")
+    {        C=A-B;
+        document.getElementById("hid").innerHTML=C;
+
+    }
+    if(OPER=="M")
+    {
+        C=A*B;
+        document.getElementById("hid").innerHTML=C;
+    }
+    if(OPER=="D")
+    {
+        C=A/B;
+        document.getElementById("hid").innerHTML=C;
+    }
+}
+    </script>
+
+</body>
+</html>

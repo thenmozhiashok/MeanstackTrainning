@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Electricity Bill</title>
+</head>
+<body>
+    <h1>Electricity bill</h1>
+    <input type="number" name="Name" id="I1"></input>
+    <button onclick="calculateBill()">calculate</button>
+    <input type="number" id="hid">The result is</input>
+    <script> 
+        var rupeeperunit = 1;
+        var minimumrate = 1;
+        function calculateBill(unit)
+        {
+            rate = 0;            
+            if(unit<=100)
+            {
+            rate = minimumrate*unit;
+            }
+            else if (unit>100 && unit<=200)
+            {
+                rupeeperunit = 2;
+                let moreunitused = unit-100;
+                rate = 100 + rupeeperunit*moreunitused;
+            }
+            else if (unit>200 && unit<=300)
+            {
+                rupeeperunit = 3;
+                let usedabove200 = unit-200;
+                rate = 300 + rupeeperunit*usedabove200;
+            }
+            else if (unit>300)
+            {
+                rupeeperunit = 5;
+                let usedabove300 = unit-300;
+                rate = 600 + rupeeperunit*usedabove300;
+                
+            }
+            //document.getElementById("hid").innerHTML=rate;
+           // console.log("the result is",rate);
+            return rate;
+            
+        }
+    
+        A=parseInt(document.getElementById("I1").value);
+    result =calculateBill(A);
+    console.log("the result is",calculateBill(A));
+   // document.getElementById("hid").innerHTML=result;
+    
+    //console.log("the result is",document.getElementById("E1").innerText);
+    </script>
+
+    
+</body>
+</html>

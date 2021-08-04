@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+function empdetails(name,salary)
+{
+
+this.name=name;
+this.salary=salary;
+}
+emp2 = new empdetails('Karthick',120000);
+emp3 = new empdetails('Thenmozhi',12000);
+
+conslidated =[];
+conslidated.push(emp2);
+conslidated.push(emp3);
+
+totalsal=0;
+
+for(i=0;i<conslidated.length;i++)
+{
+salary = conslidated[i].salary;
+totalsal = totalsal+salary;
+}
+console.log('total salary :::',totalsal);
+
+</script>
+</body>
+</html>
