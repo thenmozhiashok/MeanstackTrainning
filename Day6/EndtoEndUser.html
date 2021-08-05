@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>End to End User</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        #adduser{
+            margin:auto;
+            width:80%;
+        }
+    </style>
+</head>
+<body onload="getTouser()">
+        <div id="adduser">
+                <div>
+                    <h1 class="jumbotron text-center">End to End CRUD</h1>
+                </div>
+                <div id="adduser">        
+                    <!--<input type="text" name="id" id="id" placeholder="Enter Id"><br>-->
+                    <input type="text" name="id" id="id" placeholder="Id" disabled><br>        
+                    <input type="text" name="name" id="name" placeholder="Enter name"><br>
+                    <input type="text" name="EMAIL" id="EMAIL" placeholder="Enter MailID"><br>
+                    <input type="text" name="city" id="city" placeholder="Enter city"><br>
+                    <input type="text" name="phone" id="phone" placeholder="Enter Mobile No"><br>
+                    <input type="text" name="company" id="company" placeholder="Enter company name"><br><br>
+                    <button id="add" onclick="addusers()">Add User</button>
+                    <button id="update" onclick="UpdateData()" disabled>Update User</button>
+                    <input id="Search" onclick="Serach()" placeholder="Search By name Here"></input>
+                   <!-- <button id="clear" onclick="Clear()">Clear All</button>-->
+                </div>
+                <div>
+                    <table id='result' class="table-striped table-responsive text-centered center"></table>
+                </div>
+            </div>
+
+            <script>
+                userlist = [];
+            function getTouser()
+            {
+            document.getElementById('add').disabled=false;
+            document.getElementById('update').disabled=true;
+            fetch('https://jsonplaceholder.typicode.com/users')
+            .then(response=>response.json())
+            //.then(json=>console.log(json))
+            .then(json=>showusers(json))    
+            }
+
+            function showusers(json)
+            {
+                userlist= json;
+                console.log(userlist);
+                var dispdata=`<tr><th>Id</th><th>Name</th><th>email</th><th>City</th><th>Phone</th><th>Company</th><th>Update</th><th>Delete</th></tr>`;
+            for (let i=0;i<userlist.length;i++){
+                dispdata= dispdata +`<tr><td>${userlist[i].id}</td><td>${userlist[i].name}</td><td>${userlist[i].email}</td><td>${userlist[i].address.city}</td><td>${userlist[i].phone}</td><td>${userlist[i].company.name}</td><td><button id=${userlist[i].id} onclick="updateusers(${userlist[i].id})">Update</button></td><td><button id=${userlist[i].id} onclick="deleteusers(${userlist[i].id})">Delete</button></tr>`;
+            }
+            document.getElementById('result').innerHTML=dispdata;
+            }
+        function deleteusers(id)
+        {          
+
+            deleteindex=-1;
+            for (i=0;i<userlist.length;i++)
+            {
+               if (userlist[i].id==id)
+                deleteindex = i;
+            }
+            if (deleteindex>=0)
+            {
+                console.log('delete index::',deleteindex);
+                userlist.splice(deleteindex,1);
+            }
+            showusers(userlist);
+           }
+        function updateusers(id)
+        {
+            datatoupdate='';
+            for (i=0;i<userlist.length;i++)
+            {
+               if (userlist[i].id==id)
+               datatoupdate = userlist[i];
+            }            
+            document.getElementById('id').value=datatoupdate.id;
+            document.getElementById('name').value=datatoupdate.name;
+            document.getElementById('EMAIL').value=datatoupdate.email;
+            document.getElementById('phone').value=datatoupdate.phone;
+            document.getElementById('company').value=datatoupdate.company.name;
+            document.getElementById('city').value=datatoupdate.address.city;
+            document.getElementById('add').disabled=true;
+            document.getElementById('update').disabled=false;            
+        }
+        function addusers(){
+            id=userlist.length+1;
+            console.log('id ',id);           
+            title=document.getElementById('id').value;
+            name=document.getElementById('name').value;
+            EMAIL=document.getElementById('EMAIL').value;
+            phone=document.getElementById('phone').value;
+            company=document.getElementById('company').value;
+            city=document.getElementById('city').value;
+            //newtodo = {'id':id,'title':title,'userId':userId,'status':status};
+            fetch('https://jsonplaceholder.typicode.com/users',            
+            {
+                headers: { "Content-Type": "application/json; charset=utf-8" },
+                method: 'POST',
+                body: JSON.stringify({
+                    id: id,
+                    name:name,
+                    email:EMAIL  ,                
+                   address:{'city':city},
+                   company:{'name':company},
+                   phone:phone
+                })
+            }            
+            )
+            .then(response=>response.json())
+            //.then(json=>console.log('add ',json))
+            .then(json=>addData(json))
+        
+        }
+        function addData(json){
+            userlist.unshift(json);
+            showusers(userlist);        
+        }
+        function UpdateData(){   
+            id=document.getElementById('id').value;         
+            name=document.getElementById('name').value;
+            EMAIL=document.getElementById('EMAIL').value;
+            phone=document.getElementById('phone').value;
+            company=document.getElementById('company').value;
+            city=document.getElementById('city').value;
+            url=`https://jsonplaceholder.typicode.com/todos/${id}`
+            
+            fetch(url,            
+            {
+                headers: { "Content-Type": "application/json; charset=utf-8" },
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: id,
+                    name:name,
+                    email:EMAIL  ,                
+                   address:{'city':city},
+                   company:{'name':company},
+                   phone:phone
+                })
+            }            
+            )
+            .then(response=>response.json())
+            .then(json=>
+            {
+                console.log('updated',json);
+                for (i=0;i<userlist.length;i++)
+                {
+                    if (userlist[i].id==id)
+                    {
+                        updatedusers={
+                            id: id,
+                    name:name,
+                    email:EMAIL  ,                
+                   address:{'city':city},
+                   company:{'name':company},
+                   phone:phone
+                        };
+                        console.log('updated todos :: ',updatedusers);
+                        userlist[i]=updatedusers;
+                        showusers(userlist);
+                    }            
+                }
+            }          
+            
+            )
+        }
+        function clear()
+        {
+            document.getElementById('id').innerHTML="";         
+            document.getElementById('name').innerHTML="";
+            document.getElementById('EMAIL').innerHTML="";
+            document.getElementById('phone').innerHTML="";
+            document.getElementById('company').innerHTML="";
+            document.getElementById('city').innerHTML="";
+        }
+        function Serach()
+        {
+            let name =document.getElementById('Search').value;  
+            userlist = userlist.includes(name);
+            showusers(userlist);
+        }
+        </script>
+</body>
+</html>
